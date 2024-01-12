@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="WEB.">
+    <meta name="keywords" content="WCU Time">
+    <meta name="author" content="Qiyas.CC">
+    <title>WCU WEB</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        @font-face {
+            font-family: 'Poppins';
+            src: url('./poppins-font/Poppins-ExtraBold.ttf') format('truetype');
+            font-weight: 800;
+        }
+
+        @font-face {
+            font-family: 'Poppins';
+            src: url('./poppins-font/Poppins-Light.ttf') format('truetype');
+            font-weight: 300;
+        }
+
+        @font-face {
+            font-family: 'Poppins';
+            src: url('./poppins-font/Poppins-SemiBold.ttf') format('truetype');
+            font-weight: 600;
+        }
+
+        .extrabold {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+        }
+
+        .light {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+        }
+
+        .semibold {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+
+
+        .custom-dark-gray {
+            color: #494949;
+        }
+
+        .custom-lighter-gray {
+            color: #989898;
+        }
+
+        .custom-light-gray {
+            color: #4A4A4A;
+        }
+
+        .custom-lightest-gray {
+            color: #A0A0A0;
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+    <div class="flex flex-col items-center justify-center h-screen">
+        <div class="flex justify-between items-stretch w-full px-16 py-6 border-b border-zinc-700 gap-5 bg-white mb-10"
+            id="nav">
+            <div class="flex items-stretch justify-between gap-5">
+                <a href="http://wcu.edu.az" target="_blank" rel="noopener noreferrer">
+                    <img loading="lazy" src="./images/wcu-logo.png"
+                        class="aspect-[1.08] object-contain object-center w-[54px] overflow-hidden shrink-0 max-w-full" />
+                </a>
+                <a href="http://texnopark.com" target="_blank" rel="noopener noreferrer">
+                    <img loading="lazy" src="./images/texno-logo.png"
+                        class="aspect-[2.8] object-contain object-center w-[140px] overflow-hidden shrink-0 max-w-full" />
+                </a>
+
+            </div>
+            <div class="flex items-center justify-center py-4">
+                <label for="toggle" class="inline-flex relative items-center cursor-pointer">
+                    <input type="checkbox" id="toggle" class="sr-only peer">
+                    <div class="w-11 h-6 bg-[#494949] rounded-full peer-checked:after:translate-x-full 
+                        peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] 
+                        after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full 
+                        after:h-5 after:w-5 after:transition-all">
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <div class="extrabold text-center">
+            <div>
+                <span class="text-[300px] text-dark time-text" id="hours"></span>
+                <span class="text-[100px] text-dark time-text" id="seconds"></span>
+                <div class="custom-light-gray  text-5xl light time-text" id="date"></div>
+            </div>
+
+        </div>
+        <div class="custom-dark-gray text-8xl semibold mt-44 mb-12" id="abc">
+            Uğurlar!
+        </div>
+    </div>
+
+    <script>
+        function updateTime() {
+            const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Baku" }));
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            const aylar = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "İyun", "İyul", "Avqust", "Sentyabr", "Oktyabr", "Noyabr", "Dekabr"];
+            let day = now.getDate();
+            let month = aylar[now.getMonth()];
+            let year = now.getFullYear();
+
+            document.getElementById('hours').textContent = hours + ':' + minutes;
+            document.getElementById('seconds').textContent = ':' + seconds
+            document.getElementById('date').textContent = day + ' ' + month + ' ' + year;
+        }
+        function toggleDarkMode() {
+            var body = document.body;
+            var timeTextElements = document.querySelectorAll('.time-text');
+            var customDarkGrayElements = document.querySelectorAll('.custom-dark-gray');
+            var customLightGrayElements = document.querySelectorAll('.custom-light-gray');
+
+            body.classList.toggle('bg-white');
+            body.classList.toggle('bg-black');
+
+            timeTextElements.forEach(function (element) {
+                if (element.classList.contains('text-dark') || element.classList.contains('text-white')) {
+                    element.classList.toggle('text-dark');
+                    element.classList.toggle('text-white');
+                } else if (element.classList.contains('custom-light-gray') || element.classList.contains('custom-lightest-gray')) {
+                    element.classList.toggle('custom-light-gray');
+                    element.classList.toggle('custom-lightest-gray');
+                }
+            });
+            customDarkGrayElements.forEach(function (element) {
+                if (element.classList.contains('custom-dark-gray') || element.classList.contains('custom-lighter-gray')) {
+                    element.classList.toggle('custom-dark-gray');
+                    element.classList.toggle('custom-lighter-gray');
+                }
+            });
+        }
+
+        document.getElementById('toggle').addEventListener('change', toggleDarkMode);
+
+        setInterval(updateTime, 1000);
+
+        updateTime();
+    </script>
+
+</body>
+
+</html>
